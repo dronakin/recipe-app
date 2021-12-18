@@ -5,7 +5,7 @@ const recipeCloseBtn = document.getElementById('recipe-close-btn');
 
 // event listeners
 searchBtn.addEventListener('click', getMealList);
-mealList.addEventListener('click', getMealRecipe(e));
+mealList.addEventListener('click', getMealRecipe);
 recipeCloseBtn.addEventListener('click', () => {
     mealDetailsContent.parentElement.classList.remove('showRecipe');
 });
@@ -58,12 +58,15 @@ function getMealRecipe(e){
 function mealRecipeModal(meal){
     console.log(meal);
     meal = meal[0];
+
+    instructions = meal.strInstructions.split(/\n/);
+
     let html = `
         <h2 class = "recipe-title">${meal.strMeal}</h2>
         <p class = "recipe-category">${meal.strCategory}</p>
         <div class = "recipe-instruct">
             <h3>Instructions:</h3>
-            <p>${meal.strInstructions}</p>
+            ${instructions.map( instruction => `<p>${instruction}</p>` )}
         </div>
         <div class = "recipe-meal-img">
             <img src ="${meal.strMealThumb}" alt = "">
